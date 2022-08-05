@@ -3,7 +3,7 @@
  */
 
 import cpp
-import semmle.code.cpp.dataflow.DataFlow
+import semmle.code.cpp.dataflow.TaintTracking
 import DataFlow::PathGraph
 
 class NetworkByteSwap extends Expr {
@@ -19,8 +19,8 @@ class MemcpyCall extends FunctionCall {
   Expr getLengthArgument() { result = this.getArgument(2) }
 }
 
-class Config extends DataFlow::Configuration {
-  Config() { this = "Configuration" }
+class Config extends TaintTracking::Configuration {
+  Config() { this = "Config" }
 
   override predicate isSource(DataFlow::Node node) { node.asExpr() instanceof NetworkByteSwap }
 
